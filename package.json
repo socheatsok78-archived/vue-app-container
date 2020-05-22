@@ -18,9 +18,11 @@
         "dev": "microbundle watch",
         "test": "jest"
     },
+    "dependencies": {
+        "@condenast/quick-bus": "^0.2.0"
+    },
     "devDependencies": {
         "@babel/preset-env": "^7.9.6",
-        "@condenast/quick-bus": "^0.2.0",
         "axios": "^0.19.2",
         "babel-jest": "^26.0.1",
         "jest": "^26.0.1",
