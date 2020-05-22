@@ -18,6 +18,17 @@ describe('AppContainer', () => {
         expect($app).toBeInstanceOf(AppContainer)
     })
 
+    it('should be able to update config', () => {
+        const baseURL = 'https://api.example.com'
+        const $app = new AppContainer()
+
+        $app.config.update({
+            baseURL: baseURL
+        })
+
+        expect($app.config.baseURL).toBe(baseURL)
+    })
+
     it('$app.services should be instance of ServiceContainer', () => {
         const $app = new AppContainer()
         expect($app.services).toBeInstanceOf(ServiceContainer)
