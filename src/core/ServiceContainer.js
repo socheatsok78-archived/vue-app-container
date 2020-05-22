@@ -38,10 +38,13 @@ export default class ServiceContainer {
             throw new Error("Service Register Instance must be a function")
         }
 
-        const http = this.http
-
         Object.defineProperty(this, name, {
-            value: service(http.instance, http.config)
+            get () {
+                return service(
+                    this.http.instance,
+                    this.http.config
+                )
+            }
         })
     }
 }
