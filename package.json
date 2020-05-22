@@ -1,10 +1,16 @@
 {
-  "name": "app-engine",
-  "version": "1.0.0",
-  "main": "index.js",
-  "license": "MIT",
-  "devDependencies": {
-    "@condenast/quick-bus": "^0.2.0",
-    "axios": "^0.19.2"
-  }
+    "name": "app-engine",
+    "version": "1.0.0",
+    "source": "src/index.js",
+    "main": "dist/index.js",
+    "license": "MIT",
+    "scripts": {
+        "build": "microbundle",
+        "dev": "microbundle watch"
+    },
+    "devDependencies": {
+        "@condenast/quick-bus": "^0.2.0",
+        "axios": "^0.19.2",
+        "microbundle": "^0.12.0"
+    }
 }
