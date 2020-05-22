@@ -10,8 +10,8 @@ import ServiceContainer from './ServiceContainer'
  */
 const PRIVATE_FIELD =
     typeof Symbol === 'undefined'
-        ? `__Engine__${Date.now()}`
-        : Symbol('Engine.private')
+        ? `__AppContainer__${Date.now()}`
+        : Symbol('AppContainer.private')
 
 const Channel = new Bus()
 

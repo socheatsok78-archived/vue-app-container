@@ -7,8 +7,8 @@ import Http from './foundations/Http'
  */
 const PRIVATE_FIELD =
     typeof Symbol === 'undefined'
-        ? `__Api__${Date.now()}`
-        : Symbol('Api.private')
+        ? `__ServiceContainer__${Date.now()}`
+        : Symbol('ServiceContainer.private')
 
 export default class ServiceContainer {
     /**
