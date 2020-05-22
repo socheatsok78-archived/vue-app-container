@@ -2,5 +2,9 @@
   "name": "app-engine",
   "version": "1.0.0",
   "main": "index.js",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "@condenast/quick-bus": "^0.2.0",
+    "axios": "^0.19.2"
+  }
 }
