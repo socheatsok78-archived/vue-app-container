@@ -29,7 +29,7 @@ export default class Config extends ObservableMixin {
 
         this[PRIVATE_FIELD] = {}
 
-        this.update(config, false)
+        this.update(config)
     }
 
     /**
