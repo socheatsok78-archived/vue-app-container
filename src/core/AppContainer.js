@@ -40,7 +40,7 @@ export default class AppContainer {
         this[PRIVATE_FIELD].http = _http
         this[PRIVATE_FIELD].services = _services
 
-        this.emitReadyEvent()
+        this.fireReadyEvent()
     }
 
     /**
@@ -67,12 +67,12 @@ export default class AppContainer {
     /**
      * Emit Ready Event
      */
-    emitReadyEvent() {
-        Channel.emit(AppContainerEvent.ready, this)
+    fireReadyEvent(payload = this) {
+        Channel.emit(AppContainerEvent.ready, payload)
     }
 
     /**
-     * On container ready callback
+     * Register on container ready callback
      * @param {function} callback
      * @returns {function} Stop listen for the callback
      */

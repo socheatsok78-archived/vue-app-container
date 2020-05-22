@@ -18,7 +18,9 @@ export default class Http {
         this[PRIVATE_FIELD] = {}
 
         this[PRIVATE_FIELD].config = config
-        this[PRIVATE_FIELD].instance = axios.create(config)
+        this[PRIVATE_FIELD].instance = this.createInstance(config)
+
+        this.observeConfigChange()
     }
 
     /**
@@ -33,5 +35,22 @@ export default class Http {
      */
     get config() {
         return this[PRIVATE_FIELD].config
+    }
+
+    /**
+     * Create new axios instance
+     * @param {Config} config
+     */
+    createInstance(config) {
+        return axios.create(config)
+    }
+
+    /**
+     * Register watch config change listener
+     */
+    observeConfigChange() {
+        this.config.change(config => {
+            this[PRIVATE_FIELD].instance = this.createInstance(config)
+        })
     }
 }

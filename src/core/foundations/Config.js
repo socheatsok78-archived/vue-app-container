@@ -1,3 +1,6 @@
+import Bus from '@condenast/quick-bus'
+import ObservableMixin from '../mixins/ObservableMixin'
+
 /**
  * PRIVATE_FIELD Symbol
  */
@@ -6,34 +9,33 @@ const PRIVATE_FIELD =
         ? `__Config__${Date.now()}`
         : Symbol('Config.private')
 
-export default class Config {
+
+const Channel = new Bus()
+
+const ConfigEvent = {
+    ready: 'ConfigEvent.ready',
+    change: 'ConfigEvent.change'
+}
+
+
+export default class Config extends ObservableMixin {
     /**
      * Create new config instance
      * @param {object} config
-     * @param {string} config.gatewayURL
      * @param {string} config.baseURL
      */
     constructor(config) {
-        this[PRIVATE_FIELD] = {
-            gatewayURL: '',
-            baseURL: ''
-        }
+        super()
 
-        this.update(config)
+        this[PRIVATE_FIELD] = {}
+
+        this.update(config, false)
     }
-
-    /**
-     * Gateway URL Endpoint
-     */
-    get gatewayURL() {
-        return this[PRIVATE_FIELD].gatewayURL
-    }
-
     /**
      * Base URL Endpoint
      */
     get baseURL() {
-        return `${this.gatewayURL}/${this[PRIVATE_FIELD].baseURL}`
+        return this[PRIVATE_FIELD].baseURL || ''
     }
 
     /**
@@ -42,9 +44,13 @@ export default class Config {
      * @param {string} config.gatewayURL
      * @param {string} config.baseURL
      */
-    update(config = {}) {
-        this[PRIVATE_FIELD].gatewayURL = config.gatewayURL || ''
-        this[PRIVATE_FIELD].baseURL = config.baseURL || ''
+    update(config = {}, fireEvent = true) {
+        Object.assign(this[PRIVATE_FIELD], config)
+        this.defineAttributesPropertyGetter(this[PRIVATE_FIELD])
+
+        if (fireEvent) {
+            this.fireChangeEvent()
+        }
     }
 
     /**
@@ -56,5 +62,23 @@ export default class Config {
             .then(res => res.json())
 
         this.update(config)
+    }
+
+    /**
+     * Fire change event
+     * @param {this} payload
+     */
+    fireChangeEvent(payload = this) {
+        Channel.emit(ConfigEvent.change, payload)
+    }
+
+    /**
+     * Register on config update callback
+     * @param {function} callback
+     */
+    change(callback) {
+        Channel.on(ConfigEvent.change, function (payload) {
+            callback(payload)
+        })
     }
 }
