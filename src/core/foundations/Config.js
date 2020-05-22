@@ -31,12 +31,6 @@ export default class Config extends ObservableMixin {
 
         this.update(config, false)
     }
-    /**
-     * Base URL Endpoint
-     */
-    get baseURL() {
-        return this[PRIVATE_FIELD].baseURL || ''
-    }
 
     /**
      * Update configuration
