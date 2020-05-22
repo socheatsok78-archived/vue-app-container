@@ -1,10 +1,19 @@
 {
-    "name": "app-engine",
+    "name": "app-container",
     "version": "1.0.0",
+    "author": {
+        "name": "Socheat Sok",
+        "email": "alex@socheat.net"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/socheatsok78/vue-app-container.git"
+    },
     "source": "src/index.js",
     "main": "dist/index.js",
     "license": "MIT",
     "scripts": {
+        "prebuild": "rm -rf dist || true",
         "build": "microbundle",
         "dev": "microbundle watch",
         "test": "jest"
