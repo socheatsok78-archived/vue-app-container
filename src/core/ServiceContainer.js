@@ -23,7 +23,7 @@ export default class ServiceContainer {
     /**
      * @returns {Http}
      */
-    get http() {
+    get $http() {
         return this[PRIVATE_FIELD].http
     }
 
@@ -35,23 +35,32 @@ export default class ServiceContainer {
      */
     register(name, service) {
         if (typeof service !== 'function') {
-            throw new Error("Service Register Instance must be a function")
+            this.throwServiceRegistryException()
         }
 
         Object.defineProperty(this, name, {
+            enumerable: true,
             get () {
                 return service(
-                    this.http.instance,
-                    this.http.config
+                    this.$http.instance,
+                    this.$http.config
                 )
             }
         })
+    }
+
+    /**
+     * Throw Service Registry Exception
+     * @throws {Error}
+     */
+    throwServiceRegistryException() {
+        throw new Error("Service Register must be a callback")
     }
 }
 
 /**
  * @callback ServiceRegistry
  * @param {axios} $http
- * @param {Config} config
- * @returns {*}
+ * @param {Config} $config
+ * @returns {Object}
  */
