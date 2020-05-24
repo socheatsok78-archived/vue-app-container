@@ -1,3 +1,4 @@
+import { VueConstructor } from 'vue/types'
 import { AxiosStatic } from "axios/index";
 
 declare type HeaderOptions = {
@@ -74,6 +75,14 @@ export class ServiceContainer {
      * @param {ServiceRegistry} service Service Registry Instance
      */
     register(name: string, service: ServiceRegistry): void;
+}
+
+export class VueAppContainerPlugin {
+    /**
+     * Install App Container Plugin
+     * @param {VueConstructor} Vue
+     */
+    static install(Vue: VueConstructor): void;
 }
 
 class Config {
