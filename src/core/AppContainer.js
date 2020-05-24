@@ -22,9 +22,7 @@ const AppContainerEvent = {
 export default class AppContainer {
     /**
      * Create a new instance of AppContainer
-     * @param {Object} app
-     * @param {String} app.name Application name
-     * @param {ConfigOptions} app.config Application configurations
+     * @param {AppOptions} app
      */
     constructor(app = {}) {
         this.name = app.name || `__AppContainer__${Date.now()}`
@@ -89,10 +87,20 @@ export default class AppContainer {
 }
 
 /**
+ * @typedef AppOptions
+ * @property {string} name Application name
+ * @property {ConfigOptions} app.config name Application configurations
+ */
+
+/**
  * @typedef {Object} ConfigOptions
  * @property {string} baseURL
  * @property {number} timeout
  * @property {HeaderOptions} headers
+ */
+
+/**
+ * @typedef {Object.<string, string>} HeaderOptions
  */
 
 /**
