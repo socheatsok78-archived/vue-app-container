@@ -17,12 +17,10 @@ const ConfigEvent = {
     change: 'ConfigEvent.change'
 }
 
-
 export default class Config extends ObservableMixin {
     /**
      * Create new config instance
-     * @param {object} config
-     * @param {string} config.baseURL
+     * @param {ConfigOptions} config
      */
     constructor(config) {
         super()
@@ -34,9 +32,7 @@ export default class Config extends ObservableMixin {
 
     /**
      * Update configuration
-     * @param {object} config
-     * @param {string} config.gatewayURL
-     * @param {string} config.baseURL
+     * @param {ConfigOptions} config
      */
     update(config = {}, fireEvent = true) {
         Object.assign(this[PRIVATE_FIELD], config)
@@ -60,7 +56,7 @@ export default class Config extends ObservableMixin {
 
     /**
      * Fire change event
-     * @param {this} payload
+     * @param {Config} payload
      */
     fireChangeEvent(payload = this) {
         Channel.emit(ConfigEvent.change, payload)
@@ -68,7 +64,7 @@ export default class Config extends ObservableMixin {
 
     /**
      * Register on config update callback
-     * @param {function} callback
+     * @param {ConfigChangeCallback} callback
      */
     change(callback) {
         Channel.on(ConfigEvent.change, function (payload) {
@@ -76,3 +72,19 @@ export default class Config extends ObservableMixin {
         })
     }
 }
+
+/**
+ * @typedef {Object} ConfigOptions
+ * @property {string} baseURL
+ * @property {number} timeout
+ * @property {HeaderOptions} headers
+ */
+
+/**
+ * @typedef {Object.<string, string>} HeaderOptions
+ */
+
+/**
+ * @callback ConfigChangeCallback
+ * @param {Config} config
+ */

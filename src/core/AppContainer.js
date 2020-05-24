@@ -22,14 +22,17 @@ const AppContainerEvent = {
 export default class AppContainer {
     /**
      * Create a new instance of AppContainer
-     * @param {object} app
-     * @param {string} app.name Application name
-     * @param {object} app.config Application configurations
+     * @param {Object} app
+     * @param {String} app.name Application name
+     * @param {ConfigOptions} app.config Application configurations
      */
     constructor(app = {}) {
         this.name = app.name || `__AppContainer__${Date.now()}`
         this[PRIVATE_FIELD] = {}
 
+        /**
+         * @type {ConfigOptions}
+         */
         const configOptions = app.config || {}
 
         const _config = new Config(configOptions)
@@ -66,6 +69,7 @@ export default class AppContainer {
 
     /**
      * Emit Ready Event
+     * @param {AppContainer} payload
      */
     fireReadyEvent(payload = this) {
         Channel.emit(AppContainerEvent.ready, payload)
@@ -73,7 +77,7 @@ export default class AppContainer {
 
     /**
      * Register on container ready callback
-     * @param {function} callback
+     * @param {ContainerReadyCallback} callback
      * @returns {function} Stop listen for the callback
      */
     static ready(callback) {
@@ -83,3 +87,15 @@ export default class AppContainer {
             })
     }
 }
+
+/**
+ * @typedef {Object} ConfigOptions
+ * @property {string} baseURL
+ * @property {number} timeout
+ * @property {HeaderOptions} headers
+ */
+
+/**
+ * @callback ContainerReadyCallback
+ * @param {AppContainer} $app
+ */
