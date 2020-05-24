@@ -67,7 +67,7 @@ export default class Config extends ObservableMixin {
      * @param {ConfigChangeCallback} callback
      */
     change(callback) {
-        Channel.on(ConfigEvent.change, function (payload) {
+        return Channel.on(ConfigEvent.change, function (payload) {
             callback(payload)
         })
     }
