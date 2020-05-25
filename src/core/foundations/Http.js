@@ -1,5 +1,6 @@
 import axios from 'axios'
 import Config from './Config'
+import { isObjectEmpty } from '../utils'
 
 /**
  * PRIVATE_FIELD Symbol
@@ -46,11 +47,23 @@ export default class Http {
     }
 
     /**
+     * Update axios config
+     * @param {Config} config
+     */
+    updateConfig(config = {}) {
+        if (isObjectEmpty(config)) {
+            return
+        }
+
+        Object.assign(this.instance.defaults, config)
+    }
+
+    /**
      * Register watch config change listener
      */
     observeConfigChange() {
         this.config.change(config => {
-            this[PRIVATE_FIELD].instance = this.createInstance(config)
+            this[PRIVATE_FIELD].instance = this.updateConfig(config)
         })
     }
 }
