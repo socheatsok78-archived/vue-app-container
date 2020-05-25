@@ -14,20 +14,21 @@
     "typings": "types/index.d.ts",
     "license": "MIT",
     "scripts": {
-        "prebuild": "rm -rf dist || true",
-        "build": "microbundle",
-        "dev": "microbundle watch",
+        "prebuild": "rm -rf dist/",
+        "build": "babel src/ -d dist/",
+        "prepare": "yarn run build",
         "test": "jest"
     },
     "dependencies": {
         "@condenast/quick-bus": "^0.2.0"
     },
     "devDependencies": {
+        "@babel/cli": "^7.8.4",
+        "@babel/core": "^7.9.6",
         "@babel/preset-env": "^7.9.6",
         "axios": "^0.19.2",
         "babel-jest": "^26.0.1",
         "jest": "^26.0.1",
-        "microbundle": "^0.12.0",
         "vue": "^2.6.11"
     }
 }
