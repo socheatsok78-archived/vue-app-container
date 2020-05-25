@@ -21,6 +21,7 @@ export default class Config extends ObservableMixin {
     /**
      * Create new config instance
      * @param {ConfigOptions} config
+     * @returns {ConfigOptions} ConfigOptions
      */
     constructor(config) {
         super()
